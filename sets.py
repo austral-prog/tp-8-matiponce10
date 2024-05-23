@@ -1,3 +1,5 @@
+"""Functions for compiling dishes and ingredients for a catering company."""
+
 from sets_categories_data import (ALCOHOLS)
 
 
@@ -12,7 +14,8 @@ def clean_ingredients(dish_name, dish_ingredients):
     followed by the de-duped `set` of ingredients as the second item.
     """
 
-    return ()
+    ingredientes_limpios = set(dish_ingredients)
+    return (dish_name, ingredientes_limpios)
 
 
 def check_drinks(drink_name, drink_ingredients):
@@ -27,5 +30,7 @@ def check_drinks(drink_name, drink_ingredients):
 
     """
 
-    return ""
-
+    for ingrediente in drink_ingredients:
+        if ingrediente in ALCOHOLS:
+            return f"{drink_name} Cocktail"
+    return f"{drink_name} Mocktail"
