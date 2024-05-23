@@ -8,7 +8,8 @@ def get_coordinate(record):
     :return: str - the extracted map coordinate.
     """
 
-    return ""
+    _, coordinate = record
+    return coordinate
 
 
 def convert_coordinate(coordinate):
@@ -18,7 +19,16 @@ def convert_coordinate(coordinate):
     :return: tuple - the string coordinate split into its individual components.
     """
 
-    return ()
+    return (coordinate[:-1], coordinate[-1])
+
+
+def compare_records(treasure_coordinate, location_record):
+    treasure, t_coordinate = treasure_coordinate
+    location, l_coordinate, quadrant = location_record
+
+    # Convertir las coordenadas a un formato común para comparación
+    t_coordinate_converted = convert_coordinate(t_coordinate)
+    return t_coordinate_converted == l_coordinate
 
 
 def create_record(azara_record, rui_record):
@@ -29,4 +39,10 @@ def create_record(azara_record, rui_record):
     :return: tuple or str - the combined record (if compatible), or the string "not a match" (if incompatible).
     """
 
-    return ()
+    treasure, t_coordinate = azara_record
+    location, l_coordinate, quadrant = rui_record
+
+    if compare_records(azara_record, rui_record):
+        return (treasure, t_coordinate, location, l_coordinate, quadrant)
+    else:
+        return "not a match"
