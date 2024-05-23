@@ -31,10 +31,20 @@ jobs:
         command: pytest tp8_dicts_test.py
         timeout: 10
         max-score: 1
+    - name: Test Tuples
+      id: test-tuples
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Test Tuples
+        setup-command: pip install pytest
+        command: pytest tp8_tuples_test.py
+        timeout: 10
+        max-score: 1
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
         TEST-SETS_RESULTS: "${{steps.test-sets.outputs.result}}"
         TEST-DICTS_RESULTS: "${{steps.test-dicts.outputs.result}}"
+        TEST-TUPLES_RESULTS: "${{steps.test-tuples.outputs.result}}"
       with:
-        runners: test-sets,test-dicts
+        runners: test-sets,test-dicts,test-tuples
